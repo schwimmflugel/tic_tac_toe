@@ -36,7 +36,7 @@ class Board():
 
         
     def print_board(self):
-        os.system('cls')
+        #os.system('cls')
         print('\n\n')
         print('    ',end='')
         for x in range(1,self.size+1):

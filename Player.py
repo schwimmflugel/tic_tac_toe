@@ -99,15 +99,19 @@ class Player():
         start_time = time.time()
         if(max_path[0]=='h'): #Horizontal (row) winning path
             while True:
-                if board.assign_item(row = int(max_path[1]), item = random.randint(0, board.size-1), val=token):
-                    break
+                row = int(max_path[1])
+                item = random.randint(0, board.size-1)
+                if board.assign_item(row = row, item = item, val=token):
+                    return [row, item]
                 if time.time() - start_time >= self.timeout:
                     break
         
         elif(max_path[0]=='c'): #Collumn winning path
             while True:
-                if board.assign_item(row = random.randint(0, board.size-1), item = int(max_path[1]), val=token):
-                    break
+                row = random.randint(0, board.size-1)
+                item = int(max_path[1])
+                if board.assign_item(row = row, item = item, val=token):
+                    return [row, item]
                 if time.time() - start_time >= self.timeout:
                     break
 
@@ -115,7 +119,7 @@ class Player():
             while True:
                 spot = random.randint(0, board.size-1)
                 if board.assign_item(row = spot, item = spot, val=token):
-                    break
+                    return [spot, spot]
                 if time.time() - start_time >= self.timeout:
                     break
         
@@ -124,7 +128,7 @@ class Player():
                 collumn = random.randint(0, board.size-1)
                 row = board.size - collumn - 1
                 if board.assign_item(row = row, item = collumn, val=token):
-                    break
+                    return [row, collumn]
                 if time.time() - start_time >= self.timeout:
                     break
             

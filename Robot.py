@@ -18,25 +18,25 @@ class Robot():
             val = self.board.rows[row].items[collumn]
 
             if self.board.assign_item(row, collumn, self.robotToken):
-                break
+                return [row, collumn]
 
     def calculate(self, robot:Player, opponent:Player, board : Board):
         robot.winning_paths(board)
         opponent.winning_paths(board)
         
         if max(robot.paths.values()) == board.size - 1: #If the bot is one away from winning, make the final winning move
-            self.offensive_move(robot, board)
+            return self.offensive_move(robot, board)
         elif max(opponent.paths.values()) == board.size - 1: #If the opponent is one away from winning, stop them
-            self.defensive_move(opponent, board)
+            return self.defensive_move(opponent, board)
         else:
-            self.offensive_move(robot, board) #otherwise make an offensive move
+            return self.offensive_move(robot, board) #otherwise make an offensive move
 
     def defensive_move(self, opponent:Player, board : Board):
         #A defensive move looks at the most offensive move the opponent could take, and takes that spot
-        opponent.offensive_move(board, modifyToken=self.robotToken)
+        return opponent.offensive_move(board, modifyToken=self.robotToken)
         #print("Made a defensive move")
 
     def offensive_move(self, robot:Player, board:Board):
         #Look where wins are not possible and go for the closest winning path
-        robot.offensive_move(board)
+        return robot.offensive_move(board)
         #print("Made an offensive move")

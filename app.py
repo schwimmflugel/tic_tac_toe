@@ -1,68 +1,42 @@
 from Board import Board
 from Robot import Robot
 from Player import Player
-import random
 
+class App():
+    def __init__(self):
+        self.board = Board(3)
+        self.bot = Robot()
+        self.human = Player('1',self.board)
+        self.robot = Player('2',self.board)
+        self.tie = False
+        self.play_count = 0
 
-
-board = Board(3)
-bot = Robot()
-human = Player('1',board)
-robot = Player('2',board)
-tie = False
-
-
-play_count = 0
-
-while play_count < board.max_plays - 1:
-
-    if not robot.winning_paths(board) and not human.winning_paths(board):
-        tie = True
-        break
-
-    if bot.first_move == True:
-        bot.random_move(board)
-        bot.first_move = False
-    else:
-        #bot.defensive_move(board)
-        bot.calculate(robot, human, board)
-        # bot.random_move(board)
-    
-    board.print_board()
-
-    val = board.check_for_win()
-    if val == '2':
-        print("Robot Wins!!!!")
-        break
-    
-    play_count += 1
+    def robot_turn(self):
+        if self.bot.first_move == True:
+            self.bot.random_move(self.board)
+            self.bot.first_move = False
+        else:
+            self.bot.calculate(self.robot, self.human, self.board)
   
+        self.play_count += 1
+        self.board.print_board()
 
-    if not robot.winning_paths(board) and not human.winning_paths(board):
-        tie = True
-        break
-
-    
-    while True:
-        row = int(input("Enter row: "))-1
-        collumn = int(input("Enter collumn: "))-1
-
-        if board.assign_item(row,collumn,'1'):
-            break
+    def human_turn(self, row, collumn):
+        if self.board.assign_item(row,collumn,'1'):
+            self.play_count += 1
+            self.board.print_board()
+            return True
         else:
             print("Space taken")
-    
-    board.print_board()
+            return False
 
-    val = board.check_for_win()
-    if val == '1':
-        print("You win!!!!")
-        break
+    def check_win(self):
+        return self.board.check_for_win()
 
-
-    play_count += 1
-
-
-if play_count >= board.max_plays - 1 or tie:
-    print("Tie!!!")
+    def check_for_tie(self):
+        if not self.robot.winning_paths(self.board) and not self.human.winning_paths(self.board):
+            self.tie = True
+            return True
+        return False
+        
 
