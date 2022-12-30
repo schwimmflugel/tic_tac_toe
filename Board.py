@@ -119,6 +119,7 @@ class Board():
         
         return ""
 
+    '''
     def closest_to_win(self, player):
         player_1_options = []
         player_2_options = []
@@ -160,6 +161,7 @@ class Board():
             print("Best move in Diagonal 1")
         elif(self.max_route == 3):
             print("Best move in Diagonal 2")
+        '''
 
 
     def check_for_win(self):

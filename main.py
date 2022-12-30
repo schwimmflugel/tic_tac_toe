@@ -30,6 +30,6 @@ while app.play_count < app.board.max_plays - 1:
         break
 
 app.check_for_tie()
-if app.play_count >= app.board.max_plays or app.tie:
+if app.tie:
     print("Tie!!!")
 

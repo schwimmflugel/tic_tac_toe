@@ -3,9 +3,10 @@ from Player import Player
 import random
 
 class Robot():
-    def __init__(self, token = '2'):
-        self.board : Board = None
+    def __init__(self, board:Board, token = '2'):
+        self.board = board
         self.robotToken = token
+        self.player = Player(self.robotToken, self.board)
         self.first_move = True
         pass
 
@@ -20,7 +21,8 @@ class Robot():
             if self.board.assign_item(row, collumn, self.robotToken):
                 return [row, collumn]
 
-    def calculate(self, robot:Player, opponent:Player, board : Board):
+    def calculate(self, opponent:Player, board : Board):
+        robot = self.player
         robot.winning_paths(board)
         opponent.winning_paths(board)
         

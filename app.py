@@ -5,9 +5,9 @@ from Player import Player
 class App():
     def __init__(self):
         self.board = Board(3)
-        self.bot = Robot()
+        self.bot = Robot(self.board)
         self.human = Player('1',self.board)
-        self.robot = Player('2',self.board)
+        #self.robot = Player('2',self.board)
         self.tie = False
         self.play_count = 0
 
@@ -16,7 +16,7 @@ class App():
             self.bot.random_move(self.board)
             self.bot.first_move = False
         else:
-            self.bot.calculate(self.robot, self.human, self.board)
+            self.bot.calculate(self.human, self.board)
   
         self.play_count += 1
         self.board.print_board()
@@ -34,7 +34,7 @@ class App():
         return self.board.check_for_win()
 
     def check_for_tie(self):
-        if not self.robot.winning_paths(self.board) and not self.human.winning_paths(self.board):
+        if not self.bot.player.winning_paths(self.board) and not self.human.winning_paths(self.board):
             self.tie = True
             return True
         return False

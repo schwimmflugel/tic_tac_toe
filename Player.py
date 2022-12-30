@@ -81,7 +81,7 @@ class Player():
 
 
     def offensive_move(self, board:Board, modifyToken = ''):
-        if modifyToken == '': #Modify the playing token, this was Player 2 can play based on the offensive move that Player 1 would take
+        if modifyToken == '': #Modify the playing token, this way Player 2 can play based on the offensive move that Player 1 would take
             token = self.token
         else:
             token = modifyToken
